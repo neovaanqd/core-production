@@ -1,0 +1,92 @@
+--------------  ENC FUNCTION ----------------
+
+CREATE OR REPLACE FUNCTION C_ENC_STR (
+  text, text, text, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpEnc_Str'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_ENC_B64 (
+  text, text, text, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpEnc_B64'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_DEC_STR (
+  text, text, text, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpDec_Str'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_DEC_B64 (
+  text, text, text, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpDec_B64'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_INDEX_STR (
+  text, text, text, text, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpIndex_Str'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_DEC_INDEX_STR (
+  text, text, text, text, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpDecIndex_Str'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_DEC_INDEX_B64 (
+  text, text, text, text, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpDecIndex_B64'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_HASH_STR (
+  text, integer, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpHash_Str'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_HASH_B64 (
+  text, integer, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpHash_B64'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_HEXTOB64 (
+  text, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpHex_TO_B64'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_B64TOHEX (
+  text, text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpB64_TO_Hex'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_CONFIG_REINIT (
+  text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpConfig_ReInit'
+LANGUAGE C STRICT;
+
+CREATE OR REPLACE FUNCTION C_SELF_TEST (
+  text
+)
+	RETURNS VARCHAR
+AS 'D_INI/libdamoscpdb.so', 'ScpSelf_Test'
+LANGUAGE C STRICT;

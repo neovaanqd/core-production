@@ -1,0 +1,319 @@
+CREATE OR REPLACE FUNCTION ENC_STR (
+   I_KEY     IN    VARCHAR,
+   I_DATA    IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+      V_USER       VARCHAR(30);
+BEGIN
+  IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+	
+	select * into V_USER from current_user;
+	O_VAR  := C_ENC_STR( V_INITFILE, V_USER, $1, $2 );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION ENC_B64 (
+   I_KEY     IN    VARCHAR,
+   I_DATA    IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+      V_USER       VARCHAR(30);
+BEGIN
+	IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+	
+	select * into V_USER from current_user;
+	O_VAR  := C_ENC_B64( V_INITFILE, V_USER, $1, $2 );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION DEC_STR (
+   I_KEY     IN    VARCHAR,
+   I_DATA    IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+      V_USER       VARCHAR(30);
+BEGIN
+  IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+	
+	select * into V_USER from current_user;
+	O_VAR  := C_DEC_STR( V_INITFILE, V_USER, $1, $2 );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION DEC_B64 (
+   I_KEY     IN    VARCHAR,
+   I_DATA    IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+      V_USER       VARCHAR(30);
+BEGIN
+	IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+	
+	select * into V_USER from current_user;
+	O_VAR  := C_DEC_B64( V_INITFILE, V_USER, $1, $2 );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION INDEX_STR (
+   I_KEY     IN    VARCHAR,
+   I_DATA    IN    VARCHAR,
+   I_PTYPE   IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+      V_USER       VARCHAR(30);
+BEGIN
+	IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+	
+	select * into V_USER from current_user;
+	O_VAR  := C_INDEX_STR( V_INITFILE, V_USER, $1, $3, $2 );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION DEC_INDEX_STR (
+   I_KEY     IN    VARCHAR,
+   I_DATA    IN    VARCHAR,
+   I_PTYPE   IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+      V_USER       VARCHAR(30);
+BEGIN
+	IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+	
+	select * into V_USER from current_user;
+	O_VAR  := C_DEC_INDEX_STR( V_INITFILE, V_USER, $1, $3, $2 );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION DEC_INDEX_B64 (
+   I_KEY     IN    VARCHAR,
+   I_DATA    IN    VARCHAR,
+   I_PTYPE   IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+      V_USER       VARCHAR(30);
+BEGIN
+	IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+
+	select * into V_USER from current_user;
+	O_VAR  := C_DEC_INDEX_B64( V_INITFILE, V_USER, $1, $3, $2 );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION HASH_STR (
+   I_ALGO    IN    INTEGER,
+   I_DATA    IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+BEGIN
+	IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+
+	O_VAR  := C_HASH_STR( V_INITFILE, $1, $2 );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION HASH_B64 (
+   I_ALGO    IN    INTEGER,
+   I_DATA    IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+BEGIN
+	IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+
+	O_VAR  := C_HASH_B64( V_INITFILE, $1, $2 );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION HEXTOB64 (
+   I_DATA    IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+BEGIN
+	IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+
+	O_VAR  := C_HEXTOB64( V_INITFILE, $1);
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION B64TOHEX (
+   I_DATA    IN    VARCHAR
+)
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(8192);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+BEGIN
+	IF LENGTH(I_DATA) = 0 THEN
+    RETURN I_DATA;
+  END IF;
+
+	O_VAR  := C_B64TOHEX( V_INITFILE, $1);
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION CONFIG_REINIT ()
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR    VARCHAR(1024);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+BEGIN
+	IF V_INITFILE IS NULL THEN
+    RETURN NULL;
+  END IF;
+
+	O_VAR  := C_CONFIG_REINIT( V_INITFILE );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION SELF_TEST ()
+	RETURNS VARCHAR
+AS $$
+DECLARE
+      O_VAR        VARCHAR(1024);
+      V_INITFILE   VARCHAR(1024) := 'D_INI';
+BEGIN
+	IF V_INITFILE IS NULL THEN
+    RETURN NULL;
+  END IF;
+
+	O_VAR  := C_SELF_TEST( V_INITFILE );
+  IF LENGTH(O_VAR) = 0 THEN
+    RAISE EXCEPTION 'ERROR : SCP Encrypt Fuction. see file damo_scp_error.log.';
+  END IF;
+	
+	RETURN O_VAR;
+END;
+$$ LANGUAGE plpgsql;
